@@ -39,8 +39,6 @@ public class SquareLattice extends JPanel implements Runnable {
 		}
 		
 		byte newArr[][] = new byte[arr.length][arr[0].length];
-		//for(int i = 0; i < arr.length; i++)
-			//System.arraycopy(arr[i], 0, newArr[i], 0, arr[0].length);
 		
 		for(int i = 0; i < arr.length; i++)
 			for(int j = 0; j < arr[0].length; j++) {
