@@ -13,8 +13,13 @@ public class SquareLattice extends JPanel implements Runnable {
 		arr = new byte[width][height];
 		for(int i = 1; i < width-1; i++)
 			for(int j = 1; j < height-1; j++)
-				if(Math.random() < density)
-					arr[i][j] = (byte)(1<<(int)(Math.random()*4));
+				for(int l = 0; l < 4; l++)
+					if(Math.random() < density)
+						arr[i][j] |= (byte)(1<<l);
+		
+		for(int i = width/4; i < width*3/4; i++)
+			for(int j = height/4; j < height*3/4; j++)
+				arr[i][j] = 0;
 		
 		new Thread(this).start();
 	}
@@ -31,11 +36,11 @@ public class SquareLattice extends JPanel implements Runnable {
 			if((arr[i][arr[0].length-1] & 0b1000) == 0b1000)
 				arr[i][arr[0].length-1] ^= 0b1010;
 		}
-		for(int i = 0; i < arr.length; i++) {
+		for(int i = 0; i < arr[0].length; i++) {
 			if((arr[0][i] & 0b0100) == 0b0100)
 				arr[0][i] ^= 0b0101;
-			if((arr[arr[0].length-1][i] & 0b0001) == 0b0001)
-				arr[arr[0].length-1][i] ^= 0b0101;
+			if((arr[arr.length-1][i] & 0b0001) == 0b0001)
+				arr[arr.length-1][i] ^= 0b0101;
 		}
 		
 		byte newArr[][] = new byte[arr.length][arr[0].length];
