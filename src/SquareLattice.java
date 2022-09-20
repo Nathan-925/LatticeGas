@@ -1,7 +1,5 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
@@ -19,11 +17,12 @@ public class SquareLattice extends JPanel implements Runnable {
 	    imgArr = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();
 	    
 		arr = new byte[width][height];
-		for(int i = 1; i < width-1; i++)
-			for(int j = 1; j < height-1; j++)
+		for(int i = 0; i < width; i++)
+			for(int j = 0; j < height; j++) {
 				for(int l = 0; l < 4; l++)
 					if(Math.random() < density)
 						arr[i][j] |= (byte)(1<<l);
+			}
 		
 		for(int i = width/4; i < width*3/4; i++)
 			for(int j = height/4; j < height*3/4; j++)
@@ -76,8 +75,6 @@ public class SquareLattice extends JPanel implements Runnable {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		
 		for(int i = 0; i < arr.length; i++)
 			for(int j = 0; j < arr[0].length; j++) {
@@ -86,7 +83,7 @@ public class SquareLattice extends JPanel implements Runnable {
 				imgArr[i+j*arr.length] = n;
 			}
 		
-		g2.drawImage(img, 0, 0, null);
+		g.drawImage(img, 0, 0, null);
 	}
 	
 	@Override
