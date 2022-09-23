@@ -7,10 +7,10 @@ import javax.swing.JPanel;
 
 public class SquareLattice extends JPanel implements Runnable {
 
-	private byte[][] arr;
+	protected byte[][] arr;
 	
-	private BufferedImage img;
-	private int[] imgArr;
+	protected BufferedImage img;
+	protected int[] imgArr;
 	
 	public SquareLattice(int width, int height, double density) {
 	    img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -24,8 +24,8 @@ public class SquareLattice extends JPanel implements Runnable {
 						arr[i][j] |= (byte)(1<<l);
 			}
 		
-		for(int i = width/4; i < width*3/4; i++)
-			for(int j = height/4; j < height*3/4; j++)
+		for(int i = width/4; i < width; i++)
+			for(int j = height/4; j < height; j++)
 				arr[i][j] = 0;
 		
 		new Thread(this).start();
@@ -104,7 +104,7 @@ public class SquareLattice extends JPanel implements Runnable {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.getContentPane().add(new SquareLattice(400, 400, 0.5));
+		frame.getContentPane().add(new SquareLattice(400, 400, 0.7));
 		frame.pack();
 		frame.setVisible(true);
 	}
